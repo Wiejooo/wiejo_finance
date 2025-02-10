@@ -6,5 +6,5 @@ test_dic = {
     'day': 3,
 }
 
-core.add_bond('CDPROJECT2', 100, test_dic)
+# core.add_bond('CDPROJECT3', 100, test_dic)
 # core.delete_bond(1)

@@ -41,3 +41,11 @@ def add_shares(name:str, purchase_price:int, purchase_date:dict):
     session.add(new_share)
     # Zatwierdzenie zmian w bazie
     session.commit()
+
+def get_all_from_table(table):
+    """Pobiera z bazy wszystkie rekordy"""
+    tables = {
+        'Bonds': Bonds,
+        'Shares': Shares
+        }
+    return session.query(tables[table]).all()
