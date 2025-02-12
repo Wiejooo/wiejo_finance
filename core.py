@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from database import SessionLocal
 from models import Bonds, Shares
 
@@ -30,17 +30,29 @@ def delete_bond(id:int):
         print(f'Obligacja o id {id}, nie została znaleziona')
 
 
-def add_shares(name:str, purchase_price:int, purchase_date:dict):
+def add_shares(name:str, purchase_price:int, purchase_date):
     # Stworzenie obiektu
     new_share = Shares(
         name=name,
         purchase_price=purchase_price,
-        purchase_date=date(purchase_date['year'], purchase_date['month'], purchase_date['day'])
+        purchase_date=purchase_date
     )
     # Dodanie do sesji
     session.add(new_share)
     # Zatwierdzenie zmian w bazie
     session.commit()
+
+def delete_share(id:int):
+    share_to_delete = session.query(Shares).filter(Shares.id == id).first()
+    share_name = share_to_delete.name
+    if share_to_delete:
+        # Usunięcie obiektu
+        session.delete(share_to_delete)
+        # Zatwierdzenie zmian w bazie
+        session.commit()
+        print(f'Akcja {share_name}, została usunięta')
+    else:
+        print(f'Akcja o id {id}, nie została znaleziona')
 
 def get_all_from_table(table):
     """Pobiera z bazy wszystkie rekordy"""
