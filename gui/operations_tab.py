@@ -1,5 +1,5 @@
 from PyQt6 import QtWidgets as Qt
-from core import add_share, add_bond
+from core import add_share, add_bond, delete_share
 
 class OperationsTab(Qt.QWidget):
     def __init__(self):
@@ -48,6 +48,22 @@ class OperationsTab(Qt.QWidget):
         bond_submit_button.clicked.connect(self.handle_add_bond)
 
         layout.addWidget(bond_submit_button)
+
+         # Usuwanie akcji po ID
+        label_delete_share = Qt.QLabel("Usuń akcje po ID")
+        layout.addWidget(label_delete_share)
+
+        form_delete_share_layout = Qt.QFormLayout()
+        self.delete_share_id = Qt.QLineEdit()
+
+        form_delete_share_layout.addRow("ID Akcji:", self.delete_share_id)
+
+        layout.addLayout(form_delete_share_layout)
+
+        delete_share_submit_button = Qt.QPushButton("Usuń akcję")
+        delete_share_submit_button.clicked.connect(lambda: delete_share(int(self.delete_share_id.text())))
+
+        layout.addWidget(delete_share_submit_button)
 
         self.setLayout(layout)
 

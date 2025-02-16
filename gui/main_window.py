@@ -22,6 +22,15 @@ class MainWindow(Qt.QMainWindow):
         self.tabs.addTab(self.tables_tab, "Tabela Bonds & Shares")
         self.tabs.addTab(self.operation_tab, "Operacje")
 
+
+        self.tabs.currentChanged.connect(self.on_tab_changed)
+    def on_tab_changed(self, index):
+        """Odświerzenie tabel po wejściu w zakładkę"""
+        if index == self.tabs.indexOf(self.tables_tab):
+            self.tables_tab.load_shares()
+            self.tables_tab.load_bonds()
+
+
 if __name__ == "__main__":
     app = Qt.QApplication([])
     window = MainWindow()
