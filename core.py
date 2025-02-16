@@ -1,4 +1,3 @@
-from datetime import date, datetime
 from database import SessionLocal
 from models import Bonds, Shares
 
@@ -9,13 +8,12 @@ def add_bond(name:str, purchase_price:int, purchase_date:dict):
     new_bond = Bonds(
         name=name,
         purchase_price=purchase_price,
-        purchase_date=date(purchase_date['year'], purchase_date['month'], purchase_date['day'])
+        purchase_date=purchase_date
     )
     # Dodanie do sesji
     session.add(new_bond)
     # Zatwierdzenie zmian w bazie
     session.commit()
-    print('')
 
 def delete_bond(id:int):
     bond_to_delete = session.query(Bonds).filter(Bonds.id == id).first()
@@ -30,7 +28,7 @@ def delete_bond(id:int):
         print(f'Obligacja o id {id}, nie została znaleziona')
 
 
-def add_shares(name:str, purchase_price:int, purchase_date):
+def add_share(name:str, purchase_price:int, purchase_date):
     # Stworzenie obiektu
     new_share = Shares(
         name=name,
